@@ -16,7 +16,6 @@ dependencies:
   flutter_local_notifications: ^17.0.0
   timezone: ^0.9.2
   flutter_timezone: ^5.0.2
-  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +24,18 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Merriweather_24pt-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Merriweather_24pt-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Merriweather_24pt-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Merriweather_24pt-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Merriweather_24pt-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Merriweather_24pt-Italic.ttf
+          style: italic

@@ -118,18 +118,45 @@ class _HomeScreenState extends State<HomeScreen> {
     final result = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
+        backgroundColor: _C.card,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w700,
+          fontSize: 16,
+          color: _C.ink,
+        ),
+        contentTextStyle: const TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 13,
+          color: _C.sub,
+          height: 1.4,
+        ),
         title: const Text('Hapus Todo'),
         content: Text('Yakin ingin menghapus "${todo.title}"?'),
+        actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
+            style: TextButton.styleFrom(
+              foregroundColor: _C.sub,
+              textStyle: const TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             child: const Text('Batal'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: _C.urgent),
-            child: const Text('Hapus',
-                style: TextStyle(fontWeight: FontWeight.w600)),
+            style: TextButton.styleFrom(
+              foregroundColor: _C.urgent,
+              textStyle: const TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            child: const Text('Hapus'),
           ),
         ],
       ),
@@ -144,6 +171,59 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       MaterialPageRoute(builder: (_) => const LoginScreen()),
     );
+  }
+
+  Future<void> _confirmLogout() async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: _C.card,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        titleTextStyle: const TextStyle(
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w700,
+          fontSize: 16,
+          color: _C.ink,
+        ),
+        contentTextStyle: const TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 13,
+          color: _C.sub,
+          height: 1.4,
+        ),
+        title: const Text('Logout'),
+        content: const Text('Yakin ingin keluar dari akun ini?'),
+        actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            style: TextButton.styleFrom(
+              foregroundColor: _C.sub,
+              textStyle: const TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            child: const Text('Batal'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(
+              foregroundColor: _C.urgent,
+              textStyle: const TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            child: const Text('Logout'),
+          ),
+        ],
+      ),
+    );
+
+    if (result == true) {
+      await _logout();
+    }
   }
 
   // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -219,7 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
         IconButton(
           icon: const Icon(Icons.logout, color: Colors.white54, size: 22),
           tooltip: 'Logout',
-          onPressed: _logout,
+          onPressed: _confirmLogout,
         ),
         const SizedBox(width: 6),
       ],
@@ -401,39 +481,6 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Tombol selesai — label jelas agar mudah dikenali
-                  GestureDetector(
-                    onTap: () => _markDone(todo.id),
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 1, right: 12),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 6),
-                      decoration: BoxDecoration(
-                        color: _C.done.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                            color: _C.done.withOpacity(0.4), width: 1.5),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.check_circle_outline_rounded,
-                              size: 14, color: _C.done),
-                          const SizedBox(width: 4),
-                          const Text(
-                            'Selesai',
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 11,
-                              fontWeight: FontWeight.w700,
-                              color: _C.done,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // Judul
                   Expanded(
                     child: Text(
                       todo.title,
@@ -447,7 +494,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  // Edit
                   _MiniBtn(
                     icon: Icons.edit_outlined,
                     color: _C.sub,
@@ -461,7 +507,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                   const SizedBox(width: 4),
-                  // Hapus
                   _MiniBtn(
                     icon: Icons.delete_outline_rounded,
                     color: _C.urgent,
@@ -471,21 +516,52 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: 8),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: GestureDetector(
+                  onTap: () => _markDone(todo.id),
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: _C.done.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                          color: _C.done.withOpacity(0.4), width: 1.5),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.check_circle_outline_rounded,
+                            size: 14, color: _C.done),
+                        const SizedBox(width: 4),
+                        const Text(
+                          'Selesai',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
+                            color: _C.done,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               if (todo.description.isNotEmpty) ...[
                 const SizedBox(height: 6),
-                Padding(
-                  padding: const EdgeInsets.only(left: 36),
-                  child: Text(
-                    todo.description,
-                    style: const TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 12,
-                      color: _C.sub,
-                      height: 1.6,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                Text(
+                  todo.description,
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 12,
+                    color: _C.sub,
+                    height: 1.6,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
               const SizedBox(height: 12),

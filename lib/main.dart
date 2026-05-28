@@ -52,17 +52,16 @@ class TodoApp extends StatelessWidget {
       ),
       scaffoldBackgroundColor: surfaceColor,
       cardColor: Colors.white,
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: false,
-        systemOverlayStyle: SystemUiOverlayStyle(
+        systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
         ),
-        titleTextStyle: TextStyle(
-          fontFamily: 'Poppins',
+        titleTextStyle: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,
           color: Colors.white,
@@ -84,7 +83,6 @@ class TodoApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           textStyle: const TextStyle(
-            fontFamily: 'Poppins',
             fontWeight: FontWeight.w600,
             fontSize: 15,
           ),
@@ -108,11 +106,9 @@ class TodoApp extends StatelessWidget {
           borderSide: const BorderSide(color: primaryColor, width: 2),
         ),
         labelStyle: const TextStyle(
-          fontFamily: 'Poppins',
           color: Color(0xFF8E97B5),
         ),
         hintStyle: const TextStyle(
-          fontFamily: 'Poppins',
           color: Color(0xFFB0B8D1),
         ),
       ),
@@ -121,7 +117,6 @@ class TodoApp extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         backgroundColor: const Color(0xFF1E2340),
         contentTextStyle: const TextStyle(
-          fontFamily: 'Poppins',
           color: Colors.white,
           fontSize: 13,
         ),
@@ -129,13 +124,11 @@ class TodoApp extends StatelessWidget {
       dialogTheme: DialogThemeData(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         titleTextStyle: const TextStyle(
-          fontFamily: 'Poppins',
           fontSize: 17,
           fontWeight: FontWeight.w700,
           color: Color(0xFF1E2340),
         ),
         contentTextStyle: const TextStyle(
-          fontFamily: 'Poppins',
           fontSize: 14,
           color: Color(0xFF5A6080),
         ),
@@ -194,7 +187,6 @@ class _SplashRouterState extends State<_SplashRouter> {
             const Text(
               'Todo App',
               style: TextStyle(
-                fontFamily: 'Poppins',
                 color: Colors.white,
                 fontSize: 26,
                 fontWeight: FontWeight.w700,
