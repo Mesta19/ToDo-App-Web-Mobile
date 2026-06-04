@@ -1,10 +1,11 @@
 // lib/screens/home_screen.dart
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/todo_model.dart';
 import '../services/auth_service.dart';
-import '../services/notification_service.dart';
+import '../services/notification_helper.dart';
 import '../services/todo_service.dart';
 import 'add_todo_screen.dart';
 import 'edit_todo_screen.dart';
@@ -40,6 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Todo> _todos = [];
   bool _isLoading = true;
   String _userName = '';
+  // Tampilkan banner "Aktifkan Notifikasi" di web jika belum diberi izin
+  bool _showNotifBanner = false;
 
   // ── Lifecycle ────────────────────────────────────────────────────────────────
   @override
@@ -48,6 +51,37 @@ class _HomeScreenState extends State<HomeScreen> {
     _loadUser();
     _loadTodos();
     _startAutoRefresh();
+    if (kIsWeb) _checkWebNotificationPermission();
+  }
+
+  /// Cek apakah perlu tampilkan banner izin notifikasi (web only).
+  void _checkWebNotificationPermission() {
+    // Tampilkan banner jika belum granted dan masih bisa diminta
+    if (NotificationService.canRequestPermission &&
+        !NotificationService.isPermissionGranted) {
+      setState(() => _showNotifBanner = true);
+    }
+  }
+
+  /// Dipanggil saat user tap tombol di banner — wajib dari user gesture.
+  Future<void> _requestWebNotificationPermission() async {
+    final granted =
+        await NotificationService.requestPermissionFromUserGesture();
+    if (mounted) {
+      setState(() => _showNotifBanner = !granted);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(granted
+              ? '✅ Notifikasi browser aktif!'
+              : '❌ Izin notifikasi ditolak. Aktifkan manual di pengaturan browser.'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      if (granted) {
+        // Jadwalkan ulang semua reminder setelah izin diberikan
+        await _syncNotifications(_todos);
+      }
+    }
   }
 
   void _startAutoRefresh() {
@@ -243,33 +277,99 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _C.bg,
-      body: RefreshIndicator(
-        color: _C.accent,
-        onRefresh: _loadTodos,
-        child: CustomScrollView(
-          slivers: [
-            _buildHeader(),
-            if (_isLoading)
-              const SliverFillRemaining(
-                  child: Center(child: CircularProgressIndicator()))
-            else if (_todos.isEmpty)
-              SliverFillRemaining(child: _buildEmpty())
-            else ...[
-              SliverToBoxAdapter(child: _buildSectionLabel()),
-              SliverPadding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 110),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (_, i) => _buildCard(_todos[i]),
-                    childCount: _todos.length,
+      body: Column(
+        children: [
+          // Banner izin notifikasi — hanya tampil di web jika belum diberi izin
+          if (kIsWeb && _showNotifBanner) _buildNotifBanner(),
+          Expanded(
+            child: RefreshIndicator(
+              color: _C.accent,
+              onRefresh: _loadTodos,
+              child: CustomScrollView(
+                slivers: [
+                  _buildHeader(),
+                  if (_isLoading)
+                    const SliverFillRemaining(
+                        child: Center(child: CircularProgressIndicator()))
+                  else if (_todos.isEmpty)
+                    SliverFillRemaining(child: _buildEmpty())
+                  else ...[
+                    SliverToBoxAdapter(child: _buildSectionLabel()),
+                    SliverPadding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 110),
+                      sliver: SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (_, i) => _buildCard(_todos[i]),
+                          childCount: _todos.length,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: _buildFAB(),
+    );
+  }
+
+  // ── Banner izin notifikasi web ────────────────────────────────────────────────
+  Widget _buildNotifBanner() {
+    return Material(
+      color: const Color(0xFF1B2349),
+      child: SafeArea(
+        bottom: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: Row(
+            children: [
+              const Icon(Icons.notifications_active_rounded,
+                  color: Color(0xFFF97316), size: 20),
+              const SizedBox(width: 10),
+              const Expanded(
+                child: Text(
+                  'Aktifkan notifikasi reminder di browser',
+                  style: TextStyle(
+                    fontFamily: 'Merriweather',
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: _requestWebNotificationPermission,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF97316),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Text(
+                    'Aktifkan',
+                    style: TextStyle(
+                      fontFamily: 'Merriweather',
+                      fontSize: 11,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 6),
+              GestureDetector(
+                onTap: () => setState(() => _showNotifBanner = false),
+                child: const Icon(Icons.close_rounded,
+                    color: Colors.white54, size: 18),
+              ),
             ],
-          ],
+          ),
         ),
       ),
-      floatingActionButton: _buildFAB(),
     );
   }
 
