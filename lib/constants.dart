@@ -6,8 +6,8 @@ class AppConstants {
   static const String baseUrl = 'http://10.0.2.2/todo_api/api';
 
   // SharedPreferences keys
-  static const String keyToken     = 'auth_token';
-  static const String keyUserName  = 'user_name';
+  static const String keyToken = 'auth_token';
+  static const String keyUserName = 'user_name';
   static const String keyUserEmail = 'user_email';
-  static const String keyUserId    = 'user_id';
+  static const String keyUserId = 'user_id';
 }

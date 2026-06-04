@@ -151,7 +151,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                           TextFormField(
                             controller: _titleCtrl,
                             style: const TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'Merriweather',
                               fontSize: 15,
                               color: _C.ink,
                               fontWeight: FontWeight.w500,
@@ -179,7 +179,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                             controller: _descCtrl,
                             maxLines: 4,
                             style: const TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'Merriweather',
                               fontSize: 14,
                               color: _C.ink,
                             ),
@@ -248,7 +248,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                                         'id')
                                                     .format(_selectedDateTime!),
                                                 style: const TextStyle(
-                                                  fontFamily: 'Poppins',
+                                                  fontFamily: 'Merriweather',
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.w600,
                                                   color: _C.ink,
@@ -259,7 +259,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                                 DateFormat('HH:mm')
                                                     .format(_selectedDateTime!),
                                                 style: TextStyle(
-                                                  fontFamily: 'Poppins',
+                                                  fontFamily: 'Merriweather',
                                                   fontSize: 12,
                                                   color: _C.accent,
                                                   fontWeight: FontWeight.w600,
@@ -270,7 +270,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                                         : const Text(
                                             'Pilih tanggal & waktu',
                                             style: TextStyle(
-                                              fontFamily: 'Poppins',
+                                              fontFamily: 'Merriweather',
                                               fontSize: 14,
                                               color: _C.sub,
                                             ),
@@ -317,7 +317,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                             : const Text(
                                 'Simpan Aktivitas',
                                 style: TextStyle(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Merriweather',
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
                                   letterSpacing: 0.3,
@@ -345,7 +345,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
       scrolledUnderElevation: 0,
       iconTheme: const IconThemeData(color: Colors.white70),
       titleTextStyle: const TextStyle(
-        fontFamily: 'Poppins',
+        fontFamily: 'Merriweather',
         fontSize: 17,
         fontWeight: FontWeight.w700,
         color: Colors.white,
@@ -363,7 +363,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               const Text(
                 'Aktivitas Baru',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 26,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
@@ -375,7 +375,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
               Text(
                 'Isi detail dan atur pengingat',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 13,
                   color: Colors.white.withOpacity(0.5),
                 ),
@@ -417,7 +417,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
         Text(
           text,
           style: const TextStyle(
-            fontFamily: 'Poppins',
+            fontFamily: 'Merriweather',
             fontWeight: FontWeight.w700,
             fontSize: 13,
             color: _C.ink,
@@ -434,7 +434,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
             child: const Text(
               'opsional',
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 10,
                 color: _C.sub,
               ),
@@ -448,7 +448,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   InputDecoration _inputDecor(String hint) => InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           color: _C.sub,
           fontSize: 13,
         ),

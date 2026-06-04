@@ -121,13 +121,13 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: _C.card,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         titleTextStyle: const TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           fontWeight: FontWeight.w700,
           fontSize: 16,
           color: _C.ink,
         ),
         contentTextStyle: const TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           fontSize: 13,
           color: _C.sub,
           height: 1.4,
@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextButton.styleFrom(
               foregroundColor: _C.sub,
               textStyle: const TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -152,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextButton.styleFrom(
               foregroundColor: _C.urgent,
               textStyle: const TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -180,13 +180,13 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: _C.card,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         titleTextStyle: const TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           fontWeight: FontWeight.w700,
           fontSize: 16,
           color: _C.ink,
         ),
         contentTextStyle: const TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           fontSize: 13,
           color: _C.sub,
           height: 1.4,
@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextButton.styleFrom(
               foregroundColor: _C.sub,
               textStyle: const TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextButton.styleFrom(
               foregroundColor: _C.urgent,
               textStyle: const TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -317,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 dayName,
                 style: const TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 28,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
@@ -328,7 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 dateFmt,
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 13,
                   color: Colors.white.withOpacity(0.5),
                 ),
@@ -392,7 +392,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const Text(
             'Aktivitas',
             style: TextStyle(
-              fontFamily: 'Poppins',
+              fontFamily: 'Merriweather',
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: _C.ink,
@@ -409,7 +409,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text(
               '${_todos.length}',
               style: const TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
@@ -452,7 +452,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 10,
-                    fontFamily: 'Poppins',
+                    fontFamily: 'Merriweather',
                     fontWeight: FontWeight.w600)),
           ],
         ),
@@ -485,7 +485,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(
                       todo.title,
                       style: const TextStyle(
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Merriweather',
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
                         color: _C.ink,
@@ -539,7 +539,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Text(
                           'Selesai',
                           style: TextStyle(
-                            fontFamily: 'Poppins',
+                            fontFamily: 'Merriweather',
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
                             color: _C.done,
@@ -555,7 +555,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   todo.description,
                   style: const TextStyle(
-                    fontFamily: 'Poppins',
+                    fontFamily: 'Merriweather',
                     fontSize: 12,
                     color: _C.sub,
                     height: 1.6,
@@ -577,7 +577,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(
                       formattedDate,
                       style: TextStyle(
-                        fontFamily: 'Poppins',
+                        fontFamily: 'Merriweather',
                         fontSize: 11,
                         color: urgency != _Urgency.normal ? dotColor : _C.sub,
                         fontWeight: urgency != _Urgency.normal
@@ -619,7 +619,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const Text(
               'Semua bersih!',
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 22,
                 fontWeight: FontWeight.w800,
                 color: _C.ink,
@@ -630,7 +630,7 @@ class _HomeScreenState extends State<HomeScreen> {
               'Belum ada tugas hari ini.\nTambahkan dengan tombol + di bawah.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 13,
                 color: _C.sub,
                 height: 1.7,
@@ -659,7 +659,7 @@ class _HomeScreenState extends State<HomeScreen> {
       label: const Text(
         'Tambah',
         style: TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           fontWeight: FontWeight.w700,
           fontSize: 14,
           letterSpacing: 0.3,
@@ -705,7 +705,7 @@ class _StatCard extends StatelessWidget {
               Text(
                 value,
                 style: const TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
@@ -715,7 +715,7 @@ class _StatCard extends StatelessWidget {
               Text(
                 label,
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 10,
                   color: Colors.white.withOpacity(0.5),
                 ),
@@ -744,7 +744,7 @@ class _UrgencyBadge extends StatelessWidget {
       child: Text(
         isOverdue ? '⏰ Terlambat' : '⚡ Segera',
         style: TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           fontSize: 10,
           fontWeight: FontWeight.w700,
           color: isOverdue ? _C.urgent : _C.soon,

@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
           const Text(
             'Selamat\nDatang Kembali!',
             style: TextStyle(
-              fontFamily: 'Poppins',
+              fontFamily: 'Merriweather',
               fontSize: 28,
               fontWeight: FontWeight.w800,
               color: Colors.white,
@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Text(
             'Login untuk melihat aktivitasmu',
             style: TextStyle(
-              fontFamily: 'Poppins',
+              fontFamily: 'Merriweather',
               fontSize: 14,
               color: Colors.white.withOpacity(0.5),
             ),
@@ -218,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     : const Text(
                         'Masuk',
                         style: TextStyle(
-                          fontFamily: 'Poppins',
+                          fontFamily: 'Merriweather',
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.3,
@@ -241,7 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
           const Text(
             'Belum punya akun? ',
             style: TextStyle(
-              fontFamily: 'Poppins',
+              fontFamily: 'Merriweather',
               fontSize: 13,
               color: _C.sub,
             ),
@@ -254,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: const Text(
               'Daftar sekarang',
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 13,
                 fontWeight: FontWeight.w700,
                 color: _C.accent,
@@ -275,7 +275,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Text(
           text,
           style: const TextStyle(
-            fontFamily: 'Poppins',
+            fontFamily: 'Merriweather',
             fontWeight: FontWeight.w700,
             fontSize: 13,
             color: _C.ink,
@@ -286,7 +286,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   TextStyle _inputTextStyle() => const TextStyle(
-        fontFamily: 'Poppins',
+        fontFamily: 'Merriweather',
         fontSize: 14,
         color: _C.ink,
       );
@@ -294,7 +294,7 @@ class _LoginScreenState extends State<LoginScreen> {
   InputDecoration _inputDecor(String hint) => InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           color: _C.sub,
           fontSize: 13,
         ),

@@ -88,7 +88,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       scrolledUnderElevation: 0,
       iconTheme: const IconThemeData(color: Colors.white70),
       titleTextStyle: const TextStyle(
-        fontFamily: 'Poppins',
+        fontFamily: 'Merriweather',
         fontSize: 17,
         fontWeight: FontWeight.w700,
         color: Colors.white,
@@ -106,7 +106,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               const Text(
                 'Catatan Lalu',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 26,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
@@ -118,7 +118,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               Text(
                 'Semua aktivitas yang telah dicatat',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 13,
                   color: Colors.white.withOpacity(0.5),
                 ),
@@ -148,7 +148,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           const Text(
             'Riwayat',
             style: TextStyle(
-              fontFamily: 'Poppins',
+              fontFamily: 'Merriweather',
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: _C.ink,
@@ -165,7 +165,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             child: Text(
               '${_todos.length}',
               style: const TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
@@ -222,7 +222,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   child: Text(
                     todo.title,
                     style: const TextStyle(
-                      fontFamily: 'Poppins',
+                      fontFamily: 'Merriweather',
                       fontWeight: FontWeight.w600,
                       fontSize: 15,
                       color: _C.ink,
@@ -239,7 +239,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 child: Text(
                   todo.description,
                   style: const TextStyle(
-                    fontFamily: 'Poppins',
+                    fontFamily: 'Merriweather',
                     fontSize: 12,
                     color: _C.sub,
                     height: 1.6,
@@ -262,7 +262,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   Text(
                     formattedDate,
                     style: const TextStyle(
-                      fontFamily: 'Poppins',
+                      fontFamily: 'Merriweather',
                       fontSize: 11,
                       color: _C.sub,
                     ),
@@ -298,7 +298,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             const Text(
               'Belum ada riwayat',
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 22,
                 fontWeight: FontWeight.w800,
                 color: _C.ink,
@@ -309,7 +309,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               'Aktivitas yang selesai akan\nmuncul di sini.',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 13,
                 color: _C.sub,
                 height: 1.7,

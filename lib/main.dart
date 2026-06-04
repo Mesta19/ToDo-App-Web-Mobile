@@ -42,7 +42,7 @@ class TodoApp extends StatelessWidget {
 
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'Poppins',
+      fontFamily: 'Merriweather',
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         primary: primaryColor,

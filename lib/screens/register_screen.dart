@@ -118,7 +118,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           const Text(
             'Buat\nAkun Baru',
             style: TextStyle(
-              fontFamily: 'Poppins',
+              fontFamily: 'Merriweather',
               fontSize: 28,
               fontWeight: FontWeight.w800,
               color: Colors.white,
@@ -130,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Text(
             'Daftar untuk mulai mengelola aktivitasmu',
             style: TextStyle(
-              fontFamily: 'Poppins',
+              fontFamily: 'Merriweather',
               fontSize: 14,
               color: Colors.white.withOpacity(0.5),
             ),
@@ -233,7 +233,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     : const Text(
                         'Daftar',
                         style: TextStyle(
-                          fontFamily: 'Poppins',
+                          fontFamily: 'Merriweather',
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.3,
@@ -255,7 +255,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           const Text(
             'Sudah punya akun? ',
             style: TextStyle(
-              fontFamily: 'Poppins',
+              fontFamily: 'Merriweather',
               fontSize: 13,
               color: _C.sub,
             ),
@@ -268,7 +268,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: const Text(
               'Login',
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 13,
                 fontWeight: FontWeight.w700,
                 color: _C.accent,
@@ -288,7 +288,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Text(
           text,
           style: const TextStyle(
-            fontFamily: 'Poppins',
+            fontFamily: 'Merriweather',
             fontWeight: FontWeight.w700,
             fontSize: 13,
             color: _C.ink,
@@ -299,7 +299,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   TextStyle _inputTextStyle() => const TextStyle(
-        fontFamily: 'Poppins',
+        fontFamily: 'Merriweather',
         fontSize: 14,
         color: _C.ink,
       );
@@ -307,7 +307,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   InputDecoration _inputDecor(String hint) => InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           color: _C.sub,
           fontSize: 13,
         ),

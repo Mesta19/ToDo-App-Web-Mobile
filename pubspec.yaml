@@ -25,7 +25,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
-    - family: Poppins
+    - family: Merriweather
       fonts:
         - asset: assets/fonts/Merriweather_24pt-Regular.ttf
           weight: 400

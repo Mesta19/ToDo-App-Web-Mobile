@@ -154,7 +154,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                           TextFormField(
                             controller: _titleCtrl,
                             style: const TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'Merriweather',
                               fontSize: 15,
                               color: _C.ink,
                               fontWeight: FontWeight.w500,
@@ -181,7 +181,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                             controller: _descCtrl,
                             maxLines: 4,
                             style: const TextStyle(
-                              fontFamily: 'Poppins',
+                              fontFamily: 'Merriweather',
                               fontSize: 14,
                               color: _C.ink,
                             ),
@@ -240,7 +240,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                                           DateFormat('EEEE, dd MMMM yyyy', 'id')
                                               .format(_selectedDateTime),
                                           style: const TextStyle(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Merriweather',
                                             fontSize: 13,
                                             fontWeight: FontWeight.w600,
                                             color: _C.ink,
@@ -251,7 +251,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                                           DateFormat('HH:mm')
                                               .format(_selectedDateTime),
                                           style: const TextStyle(
-                                            fontFamily: 'Poppins',
+                                            fontFamily: 'Merriweather',
                                             fontSize: 12,
                                             color: _C.accent,
                                             fontWeight: FontWeight.w600,
@@ -297,7 +297,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
                             : const Text(
                                 'Simpan Perubahan',
                                 style: TextStyle(
-                                  fontFamily: 'Poppins',
+                                  fontFamily: 'Merriweather',
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
                                   letterSpacing: 0.3,
@@ -325,7 +325,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
       scrolledUnderElevation: 0,
       iconTheme: const IconThemeData(color: Colors.white70),
       titleTextStyle: const TextStyle(
-        fontFamily: 'Poppins',
+        fontFamily: 'Merriweather',
         fontSize: 17,
         fontWeight: FontWeight.w700,
         color: Colors.white,
@@ -343,7 +343,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
               const Text(
                 'Edit Aktivitas',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 26,
                   fontWeight: FontWeight.w800,
                   color: Colors.white,
@@ -355,7 +355,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
               Text(
                 'Perbarui detail dan pengingat',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'Merriweather',
                   fontSize: 13,
                   color: Colors.white.withOpacity(0.5),
                 ),
@@ -397,7 +397,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
         Text(
           text,
           style: const TextStyle(
-            fontFamily: 'Poppins',
+            fontFamily: 'Merriweather',
             fontWeight: FontWeight.w700,
             fontSize: 13,
             color: _C.ink,
@@ -414,7 +414,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
             child: const Text(
               'opsional',
               style: TextStyle(
-                fontFamily: 'Poppins',
+                fontFamily: 'Merriweather',
                 fontSize: 10,
                 color: _C.sub,
               ),
@@ -428,7 +428,7 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
   InputDecoration _inputDecor(String hint) => InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(
-          fontFamily: 'Poppins',
+          fontFamily: 'Merriweather',
           color: _C.sub,
           fontSize: 13,
         ),

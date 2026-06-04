@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Binary executables — jangan commit ke GitHub (melebihi batas 25MB)
+*.exe
+ngrok.exe
