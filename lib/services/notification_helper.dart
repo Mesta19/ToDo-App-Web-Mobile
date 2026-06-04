@@ -1,10 +1,10 @@
 // lib/services/notification_helper.dart
 //
-// Wrapper dengan conditional import:
-// - Di web   → pakai notification_service_stub.dart (tidak import package native)
-// - Di mobile → pakai notification_service.dart (pakai flutter_local_notifications)
+// Conditional export — Dart compiler memilih file yang tepat per platform:
+//   dart.library.io  = true  → Android, iOS, Desktop → notification_io.dart (native)
+//   dart.library.io  = false → Web Browser           → notification_service_stub.dart (dart:html)
 //
-// Semua file lain import dari sini, BUKAN langsung dari notification_service.dart
+// Semua file lain cukup import file ini saja.
 
 export 'notification_service_stub.dart'
-    if (dart.library.io) 'notification_service.dart';
+    if (dart.library.io) 'notification_io.dart';
