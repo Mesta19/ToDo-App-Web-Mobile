@@ -9,7 +9,6 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:auto_start_flutter/auto_start_flutter.dart';
 
 import '../models/todo_model.dart';
 
@@ -128,11 +127,9 @@ class NotificationService {
   static Future<void> _requestAutoStartPermission() async {
     if (kIsWeb) return;
     try {
-      final isAvailable = await (isAutoStartAvailable as Future<bool?>);
-      if (isAvailable == true) {
-        await getAutoStartPermission();
-        print('[NotificationService] Requested auto-start permission');
-      }
+      const channel = MethodChannel('com.tws_project/battery');
+      await channel.invokeMethod('requestAutoStartPermission');
+      print('[NotificationService] Requested auto-start permission natively');
     } catch (e) {
       print('[NotificationService] Auto-start permission request failed: $e');
     }
