@@ -138,92 +138,95 @@ class _ReminderInfoBannerState extends State<_ReminderInfoBanner>
         position: _slide,
         child: FadeTransition(
           opacity: _fade,
-          child: Container(
-            width: 300,
-            decoration: BoxDecoration(
-              color: const Color(0xFF1E2340),
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: const Color(0xFF2D3FE0).withOpacity(0.4),
-                width: 1.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 16,
-                  offset: const Offset(0, 6),
+          child: Material(
+            type: MaterialType.transparency,
+            child: Container(
+              width: 300,
+              decoration: BoxDecoration(
+                color: const Color(0xFF1E2340),
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: const Color(0xFF2D3FE0).withOpacity(0.4),
+                  width: 1.5,
                 ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // ── Baris judul + close ────────────────────────────────
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.alarm_rounded,
-                        color: Color(0xFF7B8FFF),
-                        size: 18,
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          widget.event.title,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: _dismissWithAnim,
-                        child: const Icon(
-                          Icons.close_rounded,
-                          color: Color(0xFF6B7A99),
-                          size: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-
-                  // ── Divider ────────────────────────────────────────────
-                  Container(
-                    height: 1,
-                    color: Colors.white.withOpacity(0.06),
-                  ),
-                  const SizedBox(height: 10),
-
-                  // ── Pesan utama ────────────────────────────────────────
-                  const Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.smartphone_rounded,
-                        color: Color(0xFFF97316),
-                        size: 16,
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          'Notifikasi akan muncul di HP Anda.\nSilahkan install Vigenesia pada HP Anda.',
-                          style: TextStyle(
-                            color: Color(0xFFB0B8D1),
-                            fontSize: 12,
-                            height: 1.5,
-                          ),
-                        ),
-                      ),
-                    ],
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 16,
+                    offset: const Offset(0, 6),
                   ),
                 ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // ── Baris judul + close ────────────────────────────────
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.alarm_rounded,
+                          color: Color(0xFF7B8FFF),
+                          size: 18,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            widget.event.title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: _dismissWithAnim,
+                          child: const Icon(
+                            Icons.close_rounded,
+                            color: Color(0xFF6B7A99),
+                            size: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+
+                    // ── Divider ────────────────────────────────────────────
+                    Container(
+                      height: 1,
+                      color: Colors.white.withOpacity(0.06),
+                    ),
+                    const SizedBox(height: 10),
+
+                    // ── Pesan utama ────────────────────────────────────────
+                    const Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.smartphone_rounded,
+                          color: Color(0xFFF97316),
+                          size: 16,
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'Notifikasi akan muncul di HP Anda.\nSilahkan install Vigenesia pada HP Anda.',
+                            style: TextStyle(
+                              color: Color(0xFFB0B8D1),
+                              fontSize: 12,
+                              height: 1.5,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -232,3 +235,4 @@ class _ReminderInfoBannerState extends State<_ReminderInfoBanner>
     );
   }
 }
+

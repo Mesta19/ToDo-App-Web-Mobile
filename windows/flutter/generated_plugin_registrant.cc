@@ -6,9 +6,12 @@
 
 #include "generated_plugin_registrant.h"
 
+#include <auto_start_flutter/auto_start_flutter_plugin.h>
 #include <flutter_timezone/flutter_timezone_plugin_c_api.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
+  AutoStartFlutterPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("AutoStartFlutterPlugin"));
   FlutterTimezonePluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterTimezonePluginCApi"));
 }
