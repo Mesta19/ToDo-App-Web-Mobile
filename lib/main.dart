@@ -29,19 +29,18 @@ class TodoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final app = MaterialApp(
+    return MaterialApp(
       title: 'Todo App',
       debugShowCheckedModeBanner: false,
       theme: _buildTheme(),
       home: const _SplashRouter(),
+      // Gunakan builder agar overlay berada DALAM MaterialApp
+      // (bukan membungkus dari luar yang merusak pointer event di web)
+      builder: kIsWeb
+          ? (ctx, child) =>
+              WebNotificationOverlay(child: child ?? const SizedBox.shrink())
+          : null,
     );
-
-    // Di web: bungkus dengan overlay notifikasi in-display
-    // Di Android/iOS: langsung return MaterialApp tanpa overhead
-    if (kIsWeb) {
-      return WebNotificationOverlay(child: app);
-    }
-    return app;
   }
 
   ThemeData _buildTheme() {
