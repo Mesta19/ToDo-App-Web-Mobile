@@ -1,14 +1,44 @@
 // lib/services/notification_service_stub.dart
-// Stub kosong — digunakan di web agar tidak import flutter_local_notifications
-// yang tidak kompatibel dengan platform web.
+//
+// Digunakan di PLATFORM WEB sebagai pengganti notification_service.dart
+// (yang tidak bisa dikompilasi untuk web karena flutter_local_notifications).
+//
+// Semua pemanggilan didelegasikan ke WebNotificationService yang menggunakan
+// Timer + in-display popup overlay — tanpa sistem notifikasi OS apapun.
+
+import '../models/todo_model.dart';
+import 'web_notification_service.dart';
 
 class NotificationService {
+  /// Tidak ada yang perlu diinisialisasi di web
   static Future<void> initialize() async {}
-  static Future<void> scheduleTodoReminder(dynamic todo) async {}
-  static Future<void> cancelTodoReminder(int id) async {}
-  static Future<void> cancelAll() async {}
+
+  /// Jadwalkan popup reminder via WebNotificationService
+  static Future<void> scheduleTodoReminder(Todo todo) async {
+    WebNotificationService.scheduleTodoReminder(todo);
+  }
+
+  /// Batalkan timer reminder untuk todo tertentu
+  static Future<void> cancelTodoReminder(int id) async {
+    WebNotificationService.cancelTodoReminder(id);
+  }
+
+  /// Batalkan semua timer reminder aktif
+  static Future<void> cancelAll() async {
+    WebNotificationService.cancelAll();
+  }
+
+  /// Tidak relevan di web
   static Future<void> showTestNotification() async {}
+
+  /// Tidak relevan di web
   static Future<void> scheduleTestNotificationWithDelay(int secondsDelay) async {}
-  static Future<void> showDebugInfo() async {}
+
+  /// Tidak relevan di web
+  static Future<void> showDebugInfo() async {
+    print('[WebStub] Aktif timers: ${WebNotificationService.activeCount}');
+  }
+
+  /// Tidak relevan di web
   static Future<List<dynamic>> getPendingNotifications() async => [];
 }

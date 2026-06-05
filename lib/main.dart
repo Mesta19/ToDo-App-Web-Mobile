@@ -1,4 +1,5 @@
 // lib/main.dart
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -6,6 +7,7 @@ import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'services/auth_service.dart';
 import 'services/notification_helper.dart';
+import 'widgets/web_notification_overlay.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,12 +29,19 @@ class TodoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final app = MaterialApp(
       title: 'Todo App',
       debugShowCheckedModeBanner: false,
       theme: _buildTheme(),
       home: const _SplashRouter(),
     );
+
+    // Di web: bungkus dengan overlay notifikasi in-display
+    // Di Android/iOS: langsung return MaterialApp tanpa overhead
+    if (kIsWeb) {
+      return WebNotificationOverlay(child: app);
+    }
+    return app;
   }
 
   ThemeData _buildTheme() {
