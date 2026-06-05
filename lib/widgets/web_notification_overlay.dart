@@ -58,29 +58,41 @@ class _WebNotificationOverlayState extends State<WebNotificationOverlay> {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      // Stack tidak intercept pointer secara default — pass-through ke child
       children: [
         widget.child,
-        // Popup stack di pojok kanan atas
-        Positioned(
-          top: 16,
-          right: 16,
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisSize: MainAxisSize.min,
-              children: _popups
-                  .map((p) => _WebNotifPopup(
-                        key: ValueKey(p.id),
-                        event: p.event,
-                        onDismiss: () => _dismiss(p.id),
-                      ))
-                  .toList(),
+
+        // Hanya tambahkan overlay jika ada popup aktif
+        // Saat _popups kosong, tidak ada widget di atas app → sentuhan bebas
+        if (_popups.isNotEmpty)
+          Positioned(
+            top: 0,
+            right: 0,
+            // IgnorePointer di area LUAR popup card agar tidak memblokir app
+            child: IgnorePointer(
+              ignoring: false, // popup sendiri tetap interaktif (dismiss button)
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 16, right: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: _popups
+                        .map((p) => _WebNotifPopup(
+                              key: ValueKey(p.id),
+                              event: p.event,
+                              onDismiss: () => _dismiss(p.id),
+                            ))
+                        .toList(),
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
       ],
     );
   }
+
 }
 
 // ── Internal data class ──────────────────────────────────────────────────────
