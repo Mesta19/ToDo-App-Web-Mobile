@@ -9,6 +9,11 @@
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
     <!-- ✅ Wajib ada: agar notifikasi bisa membangunkan device -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- ✅ Wajib: agar alarm tetap jalan meski app di-close (battery optimization) -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- ✅ Foreground service untuk notifikasi latar belakang -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <application
         android:label="ViGeNesia"

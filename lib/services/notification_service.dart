@@ -3,6 +3,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -100,6 +101,10 @@ class NotificationService {
       if (android != null) {
         final granted = await android.requestNotificationsPermission();
         print('[NotificationService] Android permission: $granted');
+
+        // ✅ Minta exact alarm permission (Android 12+)
+        await android.requestExactAlarmsPermission();
+        print('[NotificationService] Exact alarm permission requested');
       }
       final ios = _plugin!.resolvePlatformSpecificImplementation<
           IOSFlutterLocalNotificationsPlugin>();
@@ -108,6 +113,26 @@ class NotificationService {
       }
     } catch (e) {
       print('[NotificationService] Permission request error: $e');
+    }
+
+    // ✅ Minta pengecualian battery optimization (agar alarm jalan saat app di-close)
+    await _requestBatteryOptimizationExemption();
+  }
+
+  /// Minta agar app dikecualikan dari battery optimization Android.
+  /// Ini diperlukan agar alarm tetap terjadwal walau app di-swipe close.
+  static Future<void> _requestBatteryOptimizationExemption() async {
+    if (kIsWeb) return;
+    try {
+      // Cek platform via dart:io agar tidak crash di web
+      // Gunakan method channel Android untuk cek dan minta exemption
+      const channel = MethodChannel('com.tws_project/battery');
+      await channel.invokeMethod('requestIgnoreBatteryOptimizations');
+      print('[NotificationService] Battery optimization exemption requested');
+    } catch (e) {
+      // Tidak fatal — notifikasi tetap bisa jalan meski permission ini tidak ada,
+      // hanya lebih rentan di-kill oleh Android battery optimization
+      print('[NotificationService] Battery opt exemption not available: $e');
     }
   }
 

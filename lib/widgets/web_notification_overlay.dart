@@ -1,17 +1,14 @@
 // lib/widgets/web_notification_overlay.dart
 //
-// Widget overlay yang menampilkan popup notifikasi in-display di versi web.
-// Dengarkan WebNotificationService.stream dan tampilkan banner animasi
-// di pojok kanan atas layar. Bisa menumpuk beberapa popup sekaligus.
+// Overlay notifikasi web — menampilkan banner info sederhana
+// ketika waktu reminder tiba: mengarahkan user untuk install APK.
 
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../services/web_notification_service.dart';
 
-// ── Wrapper widget — pasang di atas MaterialApp atau di Scaffold ────────────
 class WebNotificationOverlay extends StatefulWidget {
   final Widget child;
-
   const WebNotificationOverlay({super.key, required this.child});
 
   @override
@@ -32,21 +29,14 @@ class _WebNotificationOverlayState extends State<WebNotificationOverlay> {
   void _onEvent(WebNotificationEvent event) {
     if (!mounted) return;
     final id = _idCounter++;
-    setState(() {
-      _popups.add(_PopupEntry(id: id, event: event));
-    });
-
-    // Auto-dismiss setelah 6 detik
-    Future.delayed(const Duration(seconds: 6), () {
-      _dismiss(id);
-    });
+    setState(() => _popups.add(_PopupEntry(id: id, event: event)));
+    // Auto-dismiss setelah 8 detik
+    Future.delayed(const Duration(seconds: 8), () => _dismiss(id));
   }
 
   void _dismiss(int id) {
     if (!mounted) return;
-    setState(() {
-      _popups.removeWhere((p) => p.id == id);
-    });
+    setState(() => _popups.removeWhere((p) => p.id == id));
   }
 
   @override
@@ -57,12 +47,9 @@ class _WebNotificationOverlayState extends State<WebNotificationOverlay> {
 
   @override
   Widget build(BuildContext context) {
-    // Stack sederhana: child app di bawah, popup di atas
-    // Karena berada dalam MaterialApp.builder, pointer event dikelola dengan benar
     return Stack(
       children: [
         widget.child,
-        // Hanya render overlay saat ada popup aktif
         if (_popups.isNotEmpty)
           Positioned(
             top: 0,
@@ -74,7 +61,7 @@ class _WebNotificationOverlayState extends State<WebNotificationOverlay> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: _popups
-                      .map((p) => _WebNotifPopup(
+                      .map((p) => _ReminderInfoBanner(
                             key: ValueKey(p.id),
                             event: p.event,
                             onDismiss: () => _dismiss(p.id),
@@ -89,60 +76,46 @@ class _WebNotificationOverlayState extends State<WebNotificationOverlay> {
   }
 }
 
-// ── Internal data class ──────────────────────────────────────────────────────
 class _PopupEntry {
   final int id;
   final WebNotificationEvent event;
   _PopupEntry({required this.id, required this.event});
 }
 
-// ── Popup card widget dengan animasi slide + fade ────────────────────────────
-class _WebNotifPopup extends StatefulWidget {
+// ── Banner info sederhana — arahkan ke install APK ───────────────────────────
+class _ReminderInfoBanner extends StatefulWidget {
   final WebNotificationEvent event;
   final VoidCallback onDismiss;
 
-  const _WebNotifPopup({
+  const _ReminderInfoBanner({
     super.key,
     required this.event,
     required this.onDismiss,
   });
 
   @override
-  State<_WebNotifPopup> createState() => _WebNotifPopupState();
+  State<_ReminderInfoBanner> createState() => _ReminderInfoBannerState();
 }
 
-class _WebNotifPopupState extends State<_WebNotifPopup>
+class _ReminderInfoBannerState extends State<_ReminderInfoBanner>
     with SingleTickerProviderStateMixin {
   late AnimationController _ctrl;
   late Animation<Offset> _slide;
   late Animation<double> _fade;
-  late Animation<double> _progress;
-
-  static const _duration = Duration(seconds: 6);
 
   @override
   void initState() {
     super.initState();
-
     _ctrl = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 350),
+      duration: const Duration(milliseconds: 400),
     );
-
     _slide = Tween<Offset>(
       begin: const Offset(1.2, 0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOutCubic));
-
-    _fade = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _ctrl, curve: Curves.easeOut),
-    );
-
-    // Progress bar mengecil dari 1 → 0 selama durasi tampil
-    _progress = Tween<double>(begin: 1.0, end: 0.0).animate(
-      AnimationController(vsync: this, duration: _duration)..forward(),
-    );
-
+    _fade = Tween<double>(begin: 0, end: 1)
+        .animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
     _ctrl.forward();
   }
 
@@ -159,9 +132,6 @@ class _WebNotifPopupState extends State<_WebNotifPopup>
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xFF2D3FE0);
-    const cardColor = Color(0xFF1E2340);
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: SlideTransition(
@@ -169,137 +139,89 @@ class _WebNotifPopupState extends State<_WebNotifPopup>
         child: FadeTransition(
           opacity: _fade,
           child: Container(
-            width: 320,
+            width: 300,
             decoration: BoxDecoration(
-              color: cardColor,
-              borderRadius: BorderRadius.circular(16),
+              color: const Color(0xFF1E2340),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: const Color(0xFF2D3FE0).withOpacity(0.4),
+                width: 1.5,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.25),
-                  blurRadius: 20,
-                  offset: const Offset(0, 8),
+                  color: Colors.black.withOpacity(0.3),
+                  blurRadius: 16,
+                  offset: const Offset(0, 6),
                 ),
               ],
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // ── Header ──────────────────────────────────────────────
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 14, 10, 6),
-                    child: Row(
-                      children: [
-                        // Icon alarm animasi pulse
-                        Container(
-                          width: 36,
-                          height: 36,
-                          decoration: BoxDecoration(
-                            color: primaryColor.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: const Icon(
-                            Icons.alarm_rounded,
-                            color: Color(0xFF7B8FFF),
-                            size: 20,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                '⏰ Pengingat Todo',
-                                style: TextStyle(
-                                  color: Color(0xFF7B8FFF),
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                widget.event.title,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        ),
-                        // Tombol dismiss
-                        IconButton(
-                          onPressed: _dismissWithAnim,
-                          icon: const Icon(
-                            Icons.close_rounded,
-                            color: Color(0xFF6B7A99),
-                            size: 18,
-                          ),
-                          padding: EdgeInsets.zero,
-                          constraints: const BoxConstraints(
-                            minWidth: 28,
-                            minHeight: 28,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // ── Deskripsi (jika ada) ─────────────────────────────────
-                  if (widget.event.description.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
-                      child: Text(
-                        widget.event.description,
-                        style: const TextStyle(
-                          color: Color(0xFF8E97B5),
-                          fontSize: 12,
-                          height: 1.4,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                  // ── Baris judul + close ────────────────────────────────
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.alarm_rounded,
+                        color: Color(0xFF7B8FFF),
+                        size: 18,
                       ),
-                    ),
-
-                  // ── Waktu reminder ───────────────────────────────────────
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.schedule_rounded,
-                          size: 12,
-                          color: Color(0xFF6B7A99),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          _formatTime(widget.event.scheduledAt),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          widget.event.title,
                           style: const TextStyle(
-                            color: Color(0xFF6B7A99),
-                            fontSize: 11,
+                            color: Colors.white,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: _dismissWithAnim,
+                        child: const Icon(
+                          Icons.close_rounded,
+                          color: Color(0xFF6B7A99),
+                          size: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+
+                  // ── Divider ────────────────────────────────────────────
+                  Container(
+                    height: 1,
+                    color: Colors.white.withOpacity(0.06),
+                  ),
+                  const SizedBox(height: 10),
+
+                  // ── Pesan utama ────────────────────────────────────────
+                  const Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.smartphone_rounded,
+                        color: Color(0xFFF97316),
+                        size: 16,
+                      ),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Notifikasi akan muncul di HP Anda.\nSilahkan install Vigenesia pada HP Anda.',
+                          style: TextStyle(
+                            color: Color(0xFFB0B8D1),
+                            fontSize: 12,
+                            height: 1.5,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-
-                  // ── Progress bar (auto-dismiss timer) ───────────────────
-                  AnimatedBuilder(
-                    animation: _progress,
-                    builder: (context, _) => LinearProgressIndicator(
-                      value: _progress.value,
-                      backgroundColor: Colors.white.withOpacity(0.05),
-                      valueColor:
-                          const AlwaysStoppedAnimation<Color>(primaryColor),
-                      minHeight: 3,
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -308,13 +230,5 @@ class _WebNotifPopupState extends State<_WebNotifPopup>
         ),
       ),
     );
-  }
-
-  String _formatTime(DateTime dt) {
-    final h = dt.hour.toString().padLeft(2, '0');
-    final m = dt.minute.toString().padLeft(2, '0');
-    final d = dt.day.toString().padLeft(2, '0');
-    final mo = dt.month.toString().padLeft(2, '0');
-    return '$h:$m • $d/$mo/${dt.year}';
   }
 }
