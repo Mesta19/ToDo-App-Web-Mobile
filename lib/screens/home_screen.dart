@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/todo_model.dart';
 import '../services/auth_service.dart';
-import '../services/notification_service.dart';
+import '../services/notification_helper.dart'; // ← conditional: web=stub, mobile=native
 import '../services/todo_service.dart';
 import 'add_todo_screen.dart';
 import 'edit_todo_screen.dart';
