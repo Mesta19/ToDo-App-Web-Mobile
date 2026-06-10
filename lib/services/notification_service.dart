@@ -115,20 +115,30 @@ class NotificationService {
       print('[NotificationService] Permission request error: $e');
     }
 
-    // ✅ Minta pengecualian battery optimization (agar alarm jalan saat app di-close)
+    // ✅ Minta pengecualian battery optimization — hanya sekali setelah install
     await _requestBatteryOptimizationExemption();
 
-    // ✅ Minta izin Autostart khusus untuk vendor HP Tiongkok (Xiaomi, Oppo, Vivo, dll)
+    // ✅ Minta izin Autostart — hanya sekali setelah install
     await _requestAutoStartPermission();
   }
 
-  /// Membuka halaman pengaturan Autostart/Mulai Otomatis untuk merek HP tertentu
-  /// agar sistem operasi tidak mematikan notifikasi paksa.
+  /// Membuka halaman pengaturan Autostart/Mulai Otomatis untuk merek HP tertentu.
+  /// Hanya muncul SEKALI setelah install, menggunakan flag SharedPreferences.
   static Future<void> _requestAutoStartPermission() async {
     if (kIsWeb) return;
     try {
+      final prefs = await SharedPreferences.getInstance();
+      final alreadyPrompted = prefs.getBool('autostart_prompted') ?? false;
+      if (alreadyPrompted) {
+        print('[NotificationService] Autostart sudah pernah diminta, skip.');
+        return;
+      }
+
       const channel = MethodChannel('com.tws_project/battery');
       await channel.invokeMethod('requestAutoStartPermission');
+
+      // Tandai sudah pernah minta — tidak akan muncul lagi
+      await prefs.setBool('autostart_prompted', true);
       print('[NotificationService] Requested auto-start permission natively');
     } catch (e) {
       print('[NotificationService] Auto-start permission request failed: $e');
@@ -136,18 +146,25 @@ class NotificationService {
   }
 
   /// Minta agar app dikecualikan dari battery optimization Android.
-  /// Ini diperlukan agar alarm tetap terjadwal walau app di-swipe close.
+  /// Hanya muncul SEKALI setelah install, menggunakan flag SharedPreferences.
   static Future<void> _requestBatteryOptimizationExemption() async {
     if (kIsWeb) return;
     try {
-      // Cek platform via dart:io agar tidak crash di web
-      // Gunakan method channel Android untuk cek dan minta exemption
+      final prefs = await SharedPreferences.getInstance();
+      final alreadyPrompted = prefs.getBool('battery_opt_prompted') ?? false;
+      if (alreadyPrompted) {
+        print('[NotificationService] Battery opt sudah pernah diminta, skip.');
+        return;
+      }
+
       const channel = MethodChannel('com.tws_project/battery');
       await channel.invokeMethod('requestIgnoreBatteryOptimizations');
+
+      // Tandai sudah pernah minta — tidak akan muncul lagi
+      await prefs.setBool('battery_opt_prompted', true);
       print('[NotificationService] Battery optimization exemption requested');
     } catch (e) {
-      // Tidak fatal — notifikasi tetap bisa jalan meski permission ini tidak ada,
-      // hanya lebih rentan di-kill oleh Android battery optimization
+      // Tidak fatal
       print('[NotificationService] Battery opt exemption not available: $e');
     }
   }
