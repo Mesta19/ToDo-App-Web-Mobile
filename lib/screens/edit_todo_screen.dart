@@ -1,5 +1,6 @@
 // lib/screens/edit_todo_screen.dart
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/todo_model.dart';
@@ -117,10 +118,36 @@ class _EditTodoScreenState extends State<EditTodoScreen> {
     setState(() => _isLoading = false);
 
     if (res['status'] == 'success') {
+      if (kIsWeb) {
+        await showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (ctx) => AlertDialog(
+            backgroundColor: _C.bg,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            title: const Text(
+              'Sinkronisasi Notifikasi',
+              style: TextStyle(fontFamily: 'Merriweather', fontWeight: FontWeight.bold, color: _C.ink),
+            ),
+            content: const Text(
+              'Aktivitas berhasil diperbarui!\n\nKarena Anda memperbarui dari Web, mohon buka aplikasi ToDo App di HP Anda sekali agar alarm pengingat dapat disinkronkan dan berbunyi tepat waktu.',
+              style: TextStyle(fontFamily: 'Merriweather', fontSize: 14, color: _C.ink),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text('Oke, Mengerti', style: TextStyle(color: _C.accent, fontWeight: FontWeight.bold)),
+              ),
+            ],
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Aktivitas berhasil diperbarui!')),
+        );
+      }
+      if (!mounted) return;
       Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Aktivitas berhasil diperbarui!')),
-      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(res['message'] ?? 'Gagal memperbarui todo.')),
