@@ -281,7 +281,20 @@ class NotificationService {
       return;
     }
 
+    // ✅ Cek apakah alarm untuk todo ini sudah terjadwal dengan waktu yang SAMA
+    // Jika iya, tidak perlu cancel+reschedule — alarm di AlarmManager tetap hidup
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final scheduled = prefs.getStringList(_scheduledNotificationsKey) ?? [];
+      final entry = '${todo.id}:${todo.reminderAt.toIso8601String()}';
+      if (scheduled.contains(entry)) {
+        print('[NotificationService] Todo ${todo.id} sudah terjadwal, skip reschedule');
+        return;
+      }
+    } catch (_) {}
+
     print('[NotificationService] Scheduling reminder for todo ${todo.id}');
+    // Cancel alarm lama dulu (mungkin reminder-time-nya berubah)
     await cancelTodoReminder(todo.id);
 
     try {

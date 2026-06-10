@@ -36,7 +36,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   List<Todo> _todos = [];
   bool _isLoading = true;
   String _userName = '';
@@ -45,9 +45,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this); // ✔️ listen app lifecycle
     _loadUser();
     _loadTodos();
     _startAutoRefresh();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  /// Dipanggil otomatis saat app kembali ke foreground (dari background/closed).
+  /// Ini memastikan todo yang dibuat di web tetap mendapat notifikasi di HP.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      print('[HomeScreen] App resumed — sync todos & notifikasi dari server');
+      _loadTodos(); // fetch ulang + jadwalkan notifikasi semua todo
+    }
   }
 
   void _startAutoRefresh() {
