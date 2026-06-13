@@ -37,7 +37,7 @@ Unduh versi rilis Android (APK) untuk mendapatkan fitur **Notifikasi Alarm** yan
 
 - **Frontend**: Flutter (Dart) 
 - **Backend API**: Native PHP 8 (REST API)
-- **Database**: MySQL (MariaDB)
+- **Database**: XAMPP (MySQL)
 - **Konektivitas**: Menggunakan Ngrok untuk eksposur API lokal ke internet.
 
 ## 🤝 Kontribusi
