@@ -25,11 +25,11 @@ Aplikasi ToDo modern, responsif, dan kaya fitur yang dibangun menggunakan **Flut
 
 ### 🌐 Versi Web (Langsung Coba)
 Anda bisa langsung mencoba aplikasi ini tanpa perlu mengunduh apapun melalui tautan berikut:
-**👉 [Buka ToDo App versi Web](https://Mesta19.github.io/vigenesia/)**
+**👉 [Buka ToDo App versi Web](https://Mesta19.github.io/ToDo-App-Web-Mobile/)**
 
 ### 📱 Versi Android (APK)
 Unduh versi rilis Android (APK) untuk mendapatkan fitur **Notifikasi Alarm** yang berjalan di latar belakang.
-**👉 [Unduh APK Terbaru di Halaman Release](https://github.com/Mesta19/vigenesia/releases/latest)**
+**👉 [Unduh APK Terbaru di Halaman Release](https://github.com/Mesta19/ToDo-App-Web-Mobile/releases/latest)**
 
 *(Catatan: Setelah menginstal, pastikan Anda mengizinkan akses notifikasi dan pengaturan Mulai Otomatis (Autostart) saat pertama kali diminta).*
 
