@@ -40,5 +40,9 @@ Unduh versi rilis Android (APK) untuk mendapatkan fitur **Notifikasi Alarm** yan
 - **Database**: XAMPP (MySQL)
 - **Konektivitas**: Menggunakan Ngrok untuk eksposur API lokal ke internet.
 
+> [!WARNING]
+> **Catatan Penggunaan:**
+> Saat ini aplikasi masih bergantung pada server lokal (Localhost). Pastikan server backend Anda sedang berjalan agar aplikasi dapat memuat data dengan normal.
+
 ## 🤝 Kontribusi
 Aplikasi ini dikembangkan sebagai bentuk implementasi manajemen tugas lintas *platform* menggunakan sinkronisasi cerdas antara server web dan notifikasi *native* Android.
